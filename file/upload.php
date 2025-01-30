@@ -10,13 +10,20 @@
         $ext = substr($filename, $dotpos);
         
         $uploc = 'images/';
+        $rand = rand(1000,10000);
 
         if(!empty($filename)){
             if($ext == 'jpg'){
                 if($filetype == 'image/jpeg'){
                     if($filesize < 90000){
-                        move_uploaded_file($tmp_loc, $uploc.$filename);
-                        echo 'uploaded successfully!';
+                        if(file_exists($uploc.''.$filename)){
+                            $newfilename = $rand.'.'.$ext;
+                            move_uploaded_file($tmp_loc, $uploc.$newfilename);
+                            echo 'Image upload successfully.!';
+                        }else{
+                            move_uploaded_file($tmp_loc, $uploc.$filename);
+                            echo 'uploaded successfully!';
+                        }
                     }else{
                         echo 'File size less than 90000 bytes';
                     }
